@@ -4,8 +4,8 @@ pub(crate) struct Solution {
 }
 
 pub(crate) trait Solver {
-    fn part1(&self, input: &str) -> &str;
-    fn part2(&self, input: &str) -> &str;
+    fn part1(&self, input: &str) -> String;
+    fn part2(&self, input: &str) -> String;
     fn solve(&self, input: &str) -> Solution {
         return Solution {
             part1_solution: self.part1(input).to_string(),
