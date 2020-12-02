@@ -1,6 +1,6 @@
 (ns advent-of-code.d01
   (:require [clojure.core.logic.fd :as fd]
-            [clojure.core.logic :refer :all]
+            [clojure.core.logic :as l]
             [advent-of-code.util :as u]
             [clojure.string :as str]))
 
@@ -8,21 +8,15 @@
   (mapv u/parse-long (str/split-lines (u/get-input 1))))
 
 (defn solve-part1 []
-  (let [domain (apply fd/domain (load-inputs))
-        [[a b]] (run 1 [a b]
-                 (fd/in a domain)
-                 (fd/in b domain)
-                 (fd/+ a b 2020))]
+  (let [[[a b]]
+        (l/run 1 [a b]
+             (fd/in a b (apply fd/domain (load-inputs)))
+             (fd/+ a b 2020))]
     (* a b)))
 
-
 (defn solve-part2 []
-  (let [domain (apply fd/domain (load-inputs))
-        [[a b c]] (run 1 [a b c]
-                       (fresh [s]
-                         (fd/in a domain)
-                         (fd/in b domain)
-                         (fd/in c domain)
-                         (fd/+ a b s)
-                         (fd/+ s c 2020)))]
+  (let [[[a b c]]
+        (l/run 1 [a b c]
+             (fd/in a b c (apply fd/domain (load-inputs)))
+             (fd/eq (= 2020 (+ a b c))))]
     (* a b c)))
