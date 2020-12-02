@@ -3,6 +3,8 @@ use crate::utils::{Solver};
 mod d01;
 mod d02;
 mod utils;
+#[macro_use]
+extern crate lazy_static;
 
 
 fn main() {

@@ -41,7 +41,7 @@ impl crate::utils::Solver for Solver {
         let mut result = 0;
         for elem in vec.clone() {
             let inner_result = solve_part_1(vec.clone(), 2020 - elem);
-            if (inner_result.is_some()) {
+            if inner_result.is_some() {
                 result = inner_result.unwrap() * elem;
                 break;
             }
