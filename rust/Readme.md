@@ -1,4 +1,7 @@
-# advent of code solutions 2020 using rust
+# advent of code solutions 2020 using rust (and other?)
+
+The main goal for this year is to learn some rust, but whenever I can think of an interesting way
+to solve it differently I will add other solutions.
 
 * run `cargo run day [data-name]`
 * data-name is optional and defaults to `input`

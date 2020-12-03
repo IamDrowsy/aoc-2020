@@ -1,8 +1,10 @@
 use crate::utils::{Solver};
 
+mod utils;
 mod d01;
 mod d02;
-mod utils;
+mod d03;
+
 #[macro_use]
 extern crate lazy_static;
 
@@ -20,6 +22,7 @@ fn main() {
     let s = match day.as_str() {
         "1" => d01::Solver.solve(&input),
         "2" => d02::Solver.solve(&input),
+        "3" => d03::Solver.solve(&input),
         _ => panic!("invalid day")
     };
     println!("Solution for Day {}", day);
