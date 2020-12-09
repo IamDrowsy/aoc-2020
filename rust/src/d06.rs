@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use regex::Regex;
 use itertools::Itertools;
 
 pub(crate) struct Solver;
