@@ -23,10 +23,10 @@ pub(crate) trait Solver {
 
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub(crate) struct Grid {
-    min_width: isize,
-    max_width: isize,
-    min_height: isize,
-    max_height: isize,
+    pub(crate) min_width: isize,
+    pub(crate) max_width: isize,
+    pub(crate) min_height: isize,
+    pub(crate) max_height: isize,
     grid: HashMap<(isize, isize), char>
 }
 

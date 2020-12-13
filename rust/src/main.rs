@@ -18,7 +18,6 @@ extern crate lazy_static;
 
 
 fn main() {
-
     let day = std::env::args().nth(1).expect("no day given");
     let data_name = std::env::args().nth(2).unwrap_or("drowsy".to_owned());
     let file = format!("../data/d{:02}-input-{}.txt", day.parse::<i32>().unwrap(), data_name);
