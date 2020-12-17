@@ -26,7 +26,7 @@ impl crate::utils::Solver for Solver {
             .unwrap();
         return (result.0 * result.1).to_string()
     }
-    fn part2(&self, input: &str) -> String {
+    fn part2(&self, _input: &str) -> String {
         return "Result".parse().unwrap();
     }
 }
