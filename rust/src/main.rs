@@ -18,6 +18,9 @@ mod d14;
 mod d15;
 mod d16;
 mod d17;
+mod d18;
+mod d19;
+mod d20;
 
 #[macro_use]
 extern crate lazy_static;
@@ -50,6 +53,9 @@ fn main() {
         "15" => d15::Solver.solve(&input),
         "16" => d16::Solver.solve(&input),
         "17" => d17::Solver.solve(&input),
+        "18" => d18::Solver.solve(&input),
+        "19" => d19::Solver.solve(&input),
+        "20" => d20::Solver.solve(&input),
         _ => panic!("invalid day")
     };
     println!("Solution for Day {}", day);
