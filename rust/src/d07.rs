@@ -44,12 +44,30 @@ fn step_insert_colors(can_be_inside: &HashMap<String,HashSet<String>>, mut curre
     return current;
 }
 
+fn parse_rules(input: &str) -> HashMap<String,HashMap<String,usize>> {
+    let mut result: HashMap<String, HashMap<String,usize>> = HashMap::new();
+    for line in input.lines() {
+        add_rule(&mut result, line);
+    }
+    return result;
+
+}
+
+fn all_keys_known(known: &HashMap<String,usize>, needed: &HashMap<String,usize>) -> bool {
+    needed.keys().all(|k| known.contains_key(k))
+}
+
+fn sum_bags(known: &HashMap<String,usize>, needed: &HashMap<String,usize>) -> usize {
+    let mut result = 0;
+    for color in needed.keys() {
+        result += (known.get(color).unwrap() + 1) * needed.get(color).unwrap();
+    }
+    return result;
+}
+
 impl crate::utils::Solver for Solver {
     fn part1(&self, input: &str) -> String {
-        let mut all_rules: HashMap<String, HashMap<String,usize>> = HashMap::new();
-        for line in input.lines() {
-            add_rule(&mut all_rules, line);
-        }
+        let all_rules = parse_rules(input);
         let can_be_inside = can_be_inside(all_rules);
         let mut current_count = 1;
         let mut last_count = 0;
@@ -63,7 +81,16 @@ impl crate::utils::Solver for Solver {
         return (start.len()-1).to_string();
     }
 
-    fn part2(&self, _input: &str) -> String {
-        return "Test".to_string();
+    fn part2(&self, input: &str) -> String {
+        let all_rules = parse_rules(input);
+        let mut known_numbers: HashMap<String,usize> =  HashMap::new();
+        while !known_numbers.contains_key("shiny gold") {
+            for (color, content) in all_rules.iter() {
+                if !known_numbers.contains_key(color) && all_keys_known(&known_numbers, content) {
+                    known_numbers.insert(color.clone(), sum_bags(&known_numbers, content));
+                }
+            }
+        }
+        return known_numbers.get("shiny gold").unwrap().to_string();
     }
 }
