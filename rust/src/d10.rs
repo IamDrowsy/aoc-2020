@@ -1,7 +1,9 @@
+use std::collections::HashMap;
+
 pub(crate) struct Solver;
 
-fn read_input(input: &str) -> Vec<u64> {
-    let mut numbers: Vec<u64> = input.lines().map(|s| s.parse().unwrap()).collect();
+fn read_input(input: &str) -> Vec<i64> {
+    let mut numbers: Vec<i64> = input.lines().map(|s| s.parse().unwrap()).collect();
     // outlet jolt
     numbers.push(0);
     // device jolt
@@ -26,17 +28,15 @@ impl crate::utils::Solver for Solver {
     }
     fn part2(&self, input: &str) -> String {
         let numbers = read_input(input);
-        let mut combinations: u64 = 1;
-        for i in 0..numbers.len()-3 {
-            if numbers[i+3] == numbers[i] + 3 {
-                combinations *= 3;
-            } else if numbers[i+2] == numbers[i] + 2 || numbers[i+2] == numbers[i] + 3 {
-                combinations *= 2;
-            } else {
-                // combinations stays the same
-            }
-
+        let mut known_combinations: HashMap<i64, i64> = HashMap::new();
+        known_combinations.insert(0,1);
+        for i in numbers.iter().skip(1) {
+            let combinations =
+                known_combinations.get(&(i-1)).unwrap_or(&0) +
+                known_combinations.get(&(i-2)).unwrap_or(&0) +
+                known_combinations.get(&(i-3)).unwrap_or(&0);
+            known_combinations.insert(i.clone(), combinations);
         }
-        return combinations.to_string();
+        return known_combinations.get(numbers.last().unwrap()).unwrap().to_string();
     }
 }
