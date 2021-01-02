@@ -26,7 +26,24 @@ impl crate::utils::Solver for Solver {
             .unwrap();
         return (result.0 * result.1).to_string()
     }
-    fn part2(&self, _input: &str) -> String {
-        return "Result".parse().unwrap();
+    fn part2(&self, input: &str) -> String {
+        let mut numbers_with_offset : Vec<(u64, u64)> = vec![];
+        let mut offset = 0;
+        for entry in input.lines().nth(1).unwrap().split(",") {
+            match entry.parse::<u64>() {
+                Ok(value) => {numbers_with_offset.push((value, offset.clone()))}
+                Err(_) => {}
+            }
+            offset += 1;
+        }
+        let mut current_step_size = 1;
+        let mut current_number = 1;
+        for (number, offset) in numbers_with_offset {
+            while (current_number + offset)  % number != 0 {
+                current_number += current_step_size;
+            }
+            current_step_size *= number;
+        }
+        return current_number.to_string();
     }
 }
